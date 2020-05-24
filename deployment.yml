@@ -1,0 +1,28 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecm-sample-application
+  labels:
+    app: ecm-smart-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: ecm-sample-application
+      app: ecm-smart-service
+  template:
+    metadata:
+      name: ecm-sample-application
+      labels:
+        name: ecm-sample-application
+        app: ecm-smart-service
+
+    spec:
+      containers:
+      - name: ecm-sample-application
+        #image: ${image_name}
+        image: narasimhamurthyk/ecm-sample-application:962a0ba44f6885fb24a916f59448ac9e615f9e85
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8084

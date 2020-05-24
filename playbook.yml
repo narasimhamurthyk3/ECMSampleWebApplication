@@ -1,0 +1,14 @@
+    
+- name: DEPLOYING ECM SAMPLE APPLICATION
+  hosts: localhost    
+  tasks:
+  - name: Deploy the service
+    k8s:
+      state: present
+      namespace: default
+      src: service.yml
+  - name: Deploy the Application
+    k8s:
+      state: present
+      namespace: default
+      src: deployment.yml
