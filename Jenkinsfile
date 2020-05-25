@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment{
         DOCKER_TAG = getDockerTag()   
-		NEXUS_URL  = "172.31.34.232:8080"
         IMAGE_URL_WITH_TAG = "narasimhamurthyk/ecm-sample-application:${DOCKER_TAG}"
 		VERSION_NUMBER="3.0"
 
