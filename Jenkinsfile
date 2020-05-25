@@ -10,7 +10,11 @@ pipeline {
 	
 
    
-   	  stage('CODE CHECKOUT') {
+
+	
+    stages{
+	
+	   	  stage('CODE CHECKOUT') {
 	  
 	  steps {
 	  
@@ -18,8 +22,6 @@ pipeline {
 	  }
    
    }
-	
-    stages{
 	
 	
 	    stage('MVN PACKAGE'){
