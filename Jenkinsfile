@@ -4,7 +4,7 @@ pipeline {
         DOCKER_TAG = getDockerTag()   
 		NEXUS_URL  = "172.31.34.232:8080"
         IMAGE_URL_WITH_TAG = "narasimhamurthyk/ecm-sample-application:${DOCKER_TAG}"
-
+		VERSION_NUMBER="3.0"
 
     }
     stages{
@@ -31,6 +31,11 @@ pipeline {
             }         
         }
     }
+	
+	  stage('Publish') {
+   
+     nexusPublisher nexusInstanceId: 'ecmserver', nexusRepositoryId: 'ECM-SAMPLE-WEB-APP', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/ECMSampleApplication.jar']], mavenCoordinate: [artifactId: 'ECMSampleApplication', groupId: 'ecm.sample.web.app', packaging: 'jar', version: '2.0']]]
+   }
 	
 
 	
@@ -59,10 +64,10 @@ pipeline {
 						sh "chmod +x changeTag.sh"
 						sh "./changeTag.sh ${DOCKER_TAG}"
 				sh "ansible-playbook  playbook.yml "
-					sh 'docker images'
+					//sh 'docker images'
 					sh 'kubeadm version'
 					sh 'kubectl version'
-					sh 'kubectl get pods --all-namespaces'
+					//sh 'kubectl get pods --all-namespaces'
 					//sh 'kubectl get pods --all-namespaces'
 					sh 'docker stop ecm-sample-application'
 					sh 'docker rm ecm-sample-application'					
