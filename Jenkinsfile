@@ -33,8 +33,12 @@ pipeline {
     }
 	
 	  stage('Publish') {
-   
+	  
+	  steps {
+	  
      nexusPublisher nexusInstanceId: 'ecmserver', nexusRepositoryId: 'ECM-SAMPLE-WEB-APP', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/ECMSampleApplication.jar']], mavenCoordinate: [artifactId: 'ECMSampleApplication', groupId: 'ecm.sample.web.app', packaging: 'jar', version: '2.0']]]
+	  }
+   
    }
 	
 
