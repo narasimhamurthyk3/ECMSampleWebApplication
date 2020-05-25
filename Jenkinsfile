@@ -3,7 +3,9 @@ pipeline {
     environment{
         DOCKER_TAG = getDockerTag()   
         IMAGE_URL_WITH_TAG = "narasimhamurthyk/ecm-sample-application:${DOCKER_TAG}"
-		VERSION_NUMBER="3.0"
+        //VERSION_NUMBER="3.0"
+	    VERSION_NUMBER={IMAGE_URL_WITH_TAG}
+	    
 
     }
     stages{
@@ -28,7 +30,7 @@ pipeline {
 	  stage('PUBLISH TO NEXUS') {
 	  
 	  steps {	  
-     nexusPublisher nexusInstanceId: 'ecmserver', nexusRepositoryId: 'ECM-SAMPLE-WEB-APP', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/ECMSampleApplication.jar']], mavenCoordinate: [artifactId: 'ECMSampleApplication', groupId: 'ecm.sample.web.app', packaging: 'jar', version: "${DOCKER_TAG}"
+     nexusPublisher nexusInstanceId: 'ecmserver', nexusRepositoryId: 'ECM-SAMPLE-WEB-APP', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/ECMSampleApplication.jar']], mavenCoordinate: [artifactId: 'ECMSampleApplication', groupId: 'ecm.sample.web.app', packaging: 'jar', version: "${VERSION_NUMBER}"
 	 
 	 ]]]
 	  }
