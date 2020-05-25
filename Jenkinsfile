@@ -8,28 +8,11 @@ pipeline {
 
     }
 	
-
-   
-
-	
     stages{
-	
-	   	  stage('CODE CHECKOUT') {
-	  
-	  steps {
-	  
-     git credentialsId: 'GIT-HUB-Credentials', url: 'https://github.com/narasimhamurthyk3/ECMSampleWebApplication.git'
-	  }
-   
-   }
-	
 	
 	    stage('MVN PACKAGE'){
         steps {        
             script {
-		   echo "this is a IMAGE_URL_WITH_TAG:: ${IMAGE_URL_WITH_TAG}";
-
- 	//sh "ansible-playbook  playbook.yml --extra-vars "${IMAGE_URL_WITH_TAG}\""			    
                 Boolean bool = true
                 if(bool) {
                     println "The File exists :)"
@@ -39,31 +22,25 @@ pipeline {
 					sh "${mvnCMD} clean package"
 					
                 }
-                else {
-                    println "The File does not exist :("
-                }   
+               
             }         
         }
     }
 	
 	  stage('PUBLISH TO NEXUS') {
 	  
-	  steps {
-	  
+	  steps {	  
      nexusPublisher nexusInstanceId: 'ecmserver', nexusRepositoryId: 'ECM-SAMPLE-WEB-APP', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/ECMSampleApplication.jar']], mavenCoordinate: [artifactId: 'ECMSampleApplication', groupId: 'ecm.sample.web.app', packaging: 'jar', version: '2.0']]]
 	  }
    
    }
-	
 
-	
+
         stage('BUILD DOCKER IMAGE'){
             steps{
                 sh "docker build . -t ${IMAGE_URL_WITH_TAG}"
             }
         }
-		
-		
 		
         stage('RUN IMAGE ON DOCKER'){
             steps{
@@ -78,41 +55,41 @@ pipeline {
            }
         }
 		
-			    stage('Run Container on Dev Server'){
+			    stage('RUN IMAGE ON KUBERNETES'){
 					steps {        
 						script {
 						Boolean bool = true
 					if(bool) {
-                    			println "The File exists :)"
+                   			
 					echo "this is a IMAGE_URL_WITH_TAG:: ${IMAGE_URL_WITH_TAG}";
-					//sh "ansible-playbook  playbook.yml"
-					// def image_id = registry + ":$BUILD_NUMBER"
-         //  sh "ansible-playbook  playbook.yml --extra-vars "image_name=${IMAGE_URL_WITH_TAG}""
-						sh 'pwd'
-						sh 'ls'
-						sh 'whoami'
+					
+					    sh "chmod +x changeTag.sh"
+						sh "./changeTag.sh ${DOCKER_TAG}"
+						sh "ansible-playbook  playbook.yml "
+					
+					
+					
+					    //sh "ansible-playbook  playbook.yml"
+					    // def image_id = registry + ":$BUILD_NUMBER"
+						// sh "ansible-playbook  playbook.yml --extra-vars "image_name=${IMAGE_URL_WITH_TAG}""
+						//sh 'pwd'
+						//sh 'ls'
+						//sh 'whoami'
 						//bash changeTag.sh
 						//sh 'bash changeTag.sh'
-						sh "chmod +x changeTag.sh"
-						sh "./changeTag.sh ${DOCKER_TAG}"
-				sh "ansible-playbook  playbook.yml "
-					//sh 'docker images'
-					sh 'kubeadm version'
-					sh 'kubectl version'
-					//sh 'kubectl get pods --all-namespaces'
-					//sh 'kubectl get pods --all-namespaces'
-					//sh 'docker stop ecm-sample-application'
-					//sh 'docker rm ecm-sample-application'					
-					//def dockerRun = 'docker run -p 8084:8084 -d --name ecm-sample-application ${IMAGE_URL_WITH_TAG}'
-					//sh 'docker run -p 8084:8084 -d --name ecm-sample-application ${IMAGE_URL_WITH_TAG}'
-					
 						
-						
-						
+						//sh 'docker images'
+						//sh 'kubeadm version'
+						//sh 'kubectl version'
+						//sh 'kubectl get pods --all-namespaces'
+						//sh 'kubectl get pods --all-namespaces'
+						//sh 'docker stop ecm-sample-application'
+						//sh 'docker rm ecm-sample-application'					
+						//def dockerRun = 'docker run -p 8084:8084 -d --name ecm-sample-application ${IMAGE_URL_WITH_TAG}'
+						//sh 'docker run -p 8084:8084 -d --name ecm-sample-application ${IMAGE_URL_WITH_TAG}'
+		
 						}
-                else {
-                    println "The File does not exist :("
-                }   
+                
             }         
         }
     }
