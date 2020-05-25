@@ -4,7 +4,7 @@ pipeline {
         DOCKER_TAG = getDockerTag()   
         IMAGE_URL_WITH_TAG = "narasimhamurthyk/ecm-sample-application:${DOCKER_TAG}"
         //VERSION_NUMBER="3.0"
-	    VERSION_NUMBER=${IMAGE_URL_WITH_TAG}
+	    VERSION_NUMBER="${IMAGE_URL_WITH_TAG}"
 	    
 
     }
