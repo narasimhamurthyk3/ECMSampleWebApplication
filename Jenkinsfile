@@ -7,10 +7,22 @@ pipeline {
 		VERSION_NUMBER="3.0"
 
     }
+	
+
+   
+   	  stage('CODE CHECKOUT') {
+	  
+	  steps {
+	  
+     git credentialsId: 'GIT-HUB-Credentials', url: 'https://github.com/narasimhamurthyk3/ECMSampleWebApplication.git'
+	  }
+   
+   }
+	
     stages{
 	
 	
-	    stage('Mvn Package'){
+	    stage('MVN PACKAGE'){
         steps {        
             script {
 		   echo "this is a IMAGE_URL_WITH_TAG:: ${IMAGE_URL_WITH_TAG}";
@@ -32,7 +44,7 @@ pipeline {
         }
     }
 	
-	  stage('Publish') {
+	  stage('PUBLISH TO NEXUS') {
 	  
 	  steps {
 	  
@@ -43,12 +55,26 @@ pipeline {
 	
 
 	
-        stage('Build Docker Image'){
+        stage('BUILD DOCKER IMAGE'){
             steps{
                 sh "docker build . -t ${IMAGE_URL_WITH_TAG}"
             }
         }
 		
+		
+		
+        stage('RUN IMAGE ON DOCKER'){
+            steps{
+                script {
+				
+				    sh 'docker stop ecm-sample-application'
+					sh 'docker rm ecm-sample-application'					
+					def dockerRun = 'docker run -p 8084:8084 -d --name ecm-sample-application ${IMAGE_URL_WITH_TAG}'
+					sh 'docker run -p 8084:8084 -d --name ecm-sample-application ${IMAGE_URL_WITH_TAG}'
+				
+			 }
+           }
+        }
 		
 			    stage('Run Container on Dev Server'){
 					steps {        
@@ -73,10 +99,10 @@ pipeline {
 					sh 'kubectl version'
 					//sh 'kubectl get pods --all-namespaces'
 					//sh 'kubectl get pods --all-namespaces'
-					sh 'docker stop ecm-sample-application'
-					sh 'docker rm ecm-sample-application'					
-					def dockerRun = 'docker run -p 8084:8084 -d --name ecm-sample-application ${IMAGE_URL_WITH_TAG}'
-					sh 'docker run -p 8084:8084 -d --name ecm-sample-application ${IMAGE_URL_WITH_TAG}'
+					//sh 'docker stop ecm-sample-application'
+					//sh 'docker rm ecm-sample-application'					
+					//def dockerRun = 'docker run -p 8084:8084 -d --name ecm-sample-application ${IMAGE_URL_WITH_TAG}'
+					//sh 'docker run -p 8084:8084 -d --name ecm-sample-application ${IMAGE_URL_WITH_TAG}'
 					
 						
 						
