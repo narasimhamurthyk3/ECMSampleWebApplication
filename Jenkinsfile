@@ -53,21 +53,14 @@ pipeline {
         }
 	    
 
+		   stage('UPLOAD TO DOCKER HUB'){
+     withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+        sh "docker login -u narasimhamurthyk -p ${dockerhub}"
+     }
+     sh 'docker push narasimhamurthyk/ecm-sample-application:1.0'
+   }
 		
-		
-		stage('UPLOAD TO DOCKER HUB') {
-     
-           steps{
-               script {
-				registryCredential = 'dockerhub'
-                   def appimage = docker.build registry + ":$DOCKER_TAG"
-                   docker.withRegistry( '', registryCredential ) {
-                       appimage.push()
-                       appimage.push('latest')
-                   }
-               }
-           }
-       }
+	
 		
 		
         stage('RUN IMAGE ON DOCKER'){
