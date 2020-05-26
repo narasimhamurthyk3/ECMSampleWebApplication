@@ -76,11 +76,10 @@ steps{
 		
 		
 		stage('UPLOAD TO DOCKER HUB'') {
-           environment {
-               registryCredential = 'dockerhub'
-           }
+     
            steps{
                script {
+				registryCredential = 'dockerhub'
                    def appimage = docker.build registry + ":$DOCKER_TAG"
                    docker.withRegistry( '', registryCredential ) {
                        appimage.push()
