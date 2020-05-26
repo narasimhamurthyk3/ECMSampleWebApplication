@@ -53,13 +53,25 @@ pipeline {
         }
 	    
 
-		   stages('Push Docker Image'){
-     withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerHubPwd')]) {
-        sh "docker login -u narasimhamurthyk -p ${dockerHubPwd}"
-     }
-     sh 'docker push narasimhamurthyk/ecm-sample-application:1.0'
-   }
+ stage('UPLOAD TO DOCKER HUB'){
+		   steps{
+		   
+		   script{
+		   
+		   withCredentials([usernameColonPassword(credentialsId: 'dockerhub', variable: 'DockerHubCredentials')]) {
+    // some block
+
 		
+        sh "docker login -u narasimhamurthyk -p ${DockerHubCredentials}"
+        sh 'docker push narasimhamurthyk/ecm-sample-application:1.0'
+		   
+		   }
+		   
+		   }
+		 
+		   }
+    
+   }	
 	
 		
 		
