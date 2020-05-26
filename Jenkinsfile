@@ -1,6 +1,7 @@
 pipeline {
     agent any
     environment{
+		registry = "narasimhamurthyk/ecm-sample-application"
         DOCKER_TAG = getDockerTag()   
         IMAGE_URL_WITH_TAG = "narasimhamurthyk/ecm-sample-application:${DOCKER_TAG}"
         //VERSION_NUMBER="3.0"
@@ -47,6 +48,22 @@ steps{
 	    
 	    
 	
+	  stage('PUBLISH TO NEXUS') {
+	  
+	  steps {
+		  script{
+			  
+			  
+		  sh 'Publishing to Nexus'
+		  sh 'docker images'
+		   echo "inside nexus#######" 
+		  
+    		 //nexusPublisher nexusInstanceId: 'ecmserver', nexusRepositoryId: 'ECM-SAMPLE-WEB-APP', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/ECMSampleApplication.jar']], mavenCoordinate: [artifactId: 'ECMSampleApplication', groupId: 'ecm.sample.web.app', packaging: 'jar', version: "${VERSION_NUMBER}"]]]
+
+		  }  
+	  }
+   
+   }
 
 
         stage('BUILD DOCKER IMAGE'){
@@ -55,12 +72,24 @@ steps{
             }
         }
 	    
-	stage('UPLOAD TO DOCKER HUB'){
-            steps{
-		 sh 'Uploading to docker Hub'
-                //sh "docker build . -t ${IMAGE_URL_WITH_TAG}"
-            }
-        }
+
+		
+		
+		stage('UPLOAD TO DOCKER HUB'') {
+           environment {
+               registryCredential = 'dockerhub'
+           }
+           steps{
+               script {
+                   def appimage = docker.build registry + ":$DOCKER_TAG"
+                   docker.withRegistry( '', registryCredential ) {
+                       appimage.push()
+                       appimage.push('latest')
+                   }
+               }
+           }
+       }
+		
 		
         stage('RUN IMAGE ON DOCKER'){
             steps{
