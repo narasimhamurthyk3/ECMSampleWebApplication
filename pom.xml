@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>serving-web-content</artifactId>
+	<artifactId>ECMSampleWebApplication</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>serving-web-content</name>
+	<name>ECMSampleWebApplication</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
