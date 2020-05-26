@@ -53,34 +53,7 @@ pipeline {
         }
 	    
 
- stage('UPLOAD TO DOCKER HUB'){
-		   steps{
-		   
-		   script{
-		   
-			   
-				   
-	echo 'Docker Login'  		
-       // sh "docker login -u narasimhamurthyk -p nokia1200"
-			   
-			   echo "$DockerHubPWD" | docker login --username narasimhamurthyk --password-stdin
-				   echo 'docker login sucessfull'
-        sh "docker push narasimhamurthyk/ecm-sample-application:1.0"
-    
 
-			   
-		 
-    
-
-
-		   
-		   
-		   
-		   }
-		 
-		   }
-    
-   }	
 	
 		
 		
