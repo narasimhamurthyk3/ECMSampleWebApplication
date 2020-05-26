@@ -75,7 +75,7 @@ steps{
 
 		
 		
-		stage('UPLOAD TO DOCKER HUB'') {
+		stage('UPLOAD TO DOCKER HUB') {
      
            steps{
                script {
