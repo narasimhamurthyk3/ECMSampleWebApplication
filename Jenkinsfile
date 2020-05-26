@@ -97,8 +97,7 @@ steps{
 						//sh 'ls'
 						//sh 'whoami'
 						//bash changeTag.sh
-						//sh 'bash changeTag.sh'
-						
+						//sh 'bash changeTag.sh'						
 						//sh 'docker images'
 						//sh 'kubeadm version'
 						//sh 'kubectl version'
