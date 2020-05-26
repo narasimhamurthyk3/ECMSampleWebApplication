@@ -50,9 +50,16 @@ steps{
 	  stage('PUBLISH TO NEXUS') {
 	  
 	  steps {
-		 sh 'Publishing to Nexus'
+		  script{
+			  
+			  
+		  sh 'Publishing to Nexus'
 		  sh 'docker images'
+		   echo "inside nexus#######" 
+		  
     		 //nexusPublisher nexusInstanceId: 'ecmserver', nexusRepositoryId: 'ECM-SAMPLE-WEB-APP', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/ECMSampleApplication.jar']], mavenCoordinate: [artifactId: 'ECMSampleApplication', groupId: 'ecm.sample.web.app', packaging: 'jar', version: "${VERSION_NUMBER}"]]]
+
+		  }  
 	  }
    
    }
