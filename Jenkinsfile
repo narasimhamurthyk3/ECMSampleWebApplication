@@ -58,14 +58,20 @@ pipeline {
 		   
 		   script{
 		   
-		   withCredentials([usernameColonPassword(credentialsId: 'dockerhub', variable: 'DockerHubCredentials')]) {
-    // some block
-
-		
-        sh "docker login -u narasimhamurthyk -p ${DockerHubCredentials}"
+			   withCredentials([string(credentialsId: 'DockerHubPWD', variable: 'DockerHubPWD')]) {
+				   
+				   		
+        sh "docker login -u narasimhamurthyk -p ${DockerHubPWD}"
         sh 'docker push narasimhamurthyk/ecm-sample-application:1.0'
+    
+}
+			   
+		 
+    
+
+
 		   
-		   }
+		   
 		   
 		   }
 		 
