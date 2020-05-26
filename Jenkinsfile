@@ -60,8 +60,9 @@ pipeline {
 		   
 			   withCredentials([string(credentialsId: 'DockerHubPWD', variable: 'DockerHubPWD')]) {
 				   
-				   		
-        sh "docker login -u narasimhamurthyk -p ${DockerHubPWD}"
+	echo 'Docker Login'  		
+        sh 'docker login -u narasimhamurthyk -p ${DockerHubPWD}'
+				   echo 'docker login sucessfull'
         sh 'docker push narasimhamurthyk/ecm-sample-application:1.0'
     
 }
