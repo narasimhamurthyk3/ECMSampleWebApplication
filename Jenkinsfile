@@ -93,7 +93,7 @@ steps{
 					
 					    sh "chmod +x changeTag.sh"
 						sh "./changeTag.sh ${DOCKER_TAG}"
-						sh "ansible-playbook  playbook.yml "
+						//sh "ansible-playbook  playbook.yml "
 					
 					
 					
