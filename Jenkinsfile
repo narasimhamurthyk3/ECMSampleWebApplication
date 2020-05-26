@@ -61,9 +61,11 @@ pipeline {
 			   
 				   
 	echo 'Docker Login'  		
-        sh 'docker login -u narasimhamurthyk -p nokia1200'
+       // sh "docker login -u narasimhamurthyk -p nokia1200"
+			   
+			   echo "$DockerHubPWD" | docker login --username narasimhamurthyk --password-stdin
 				   echo 'docker login sucessfull'
-        sh 'docker push narasimhamurthyk/ecm-sample-application:1.0'
+        sh "docker push narasimhamurthyk/ecm-sample-application:1.0"
     
 
 			   
