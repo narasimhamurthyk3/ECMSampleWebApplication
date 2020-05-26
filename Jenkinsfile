@@ -27,7 +27,7 @@ pipeline {
         }
     }
 	    
-stage('sonar-scanner') {
+stage('SONAR-SCANNER') {
 
 steps{
 
@@ -50,8 +50,8 @@ steps{
 	  stage('PUBLISH TO NEXUS') {
 	  
 	  steps {
-		  
-    		 nexusPublisher nexusInstanceId: 'ecmserver', nexusRepositoryId: 'ECM-SAMPLE-WEB-APP', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/ECMSampleApplication.jar']], mavenCoordinate: [artifactId: 'ECMSampleApplication', groupId: 'ecm.sample.web.app', packaging: 'jar', version: "${VERSION_NUMBER}"]]]
+		 sh 'Publishing to Nexus'
+    		 //nexusPublisher nexusInstanceId: 'ecmserver', nexusRepositoryId: 'ECM-SAMPLE-WEB-APP', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/ECMSampleApplication.jar']], mavenCoordinate: [artifactId: 'ECMSampleApplication', groupId: 'ecm.sample.web.app', packaging: 'jar', version: "${VERSION_NUMBER}"]]]
 	  }
    
    }
@@ -60,6 +60,13 @@ steps{
         stage('BUILD DOCKER IMAGE'){
             steps{
                 sh "docker build . -t ${IMAGE_URL_WITH_TAG}"
+            }
+        }
+	    
+	stage('UPLOAD TO DOCKER HUB'){
+            steps{
+		 sh 'Uploading to docker Hub'
+                //sh "docker build . -t ${IMAGE_URL_WITH_TAG}"
             }
         }
 		
