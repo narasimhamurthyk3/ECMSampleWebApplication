@@ -54,10 +54,21 @@ pipeline {
 	    
 
 		   stage('UPLOAD TO DOCKER HUB'){
-     withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+		   steps{
+		   
+		   script{
+		   
+		   
+		withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) 
         sh "docker login -u narasimhamurthyk -p ${dockerhub}"
-     }
-     sh 'docker push narasimhamurthyk/ecm-sample-application:1.0'
+        sh 'docker push narasimhamurthyk/ecm-sample-application:1.0'
+		   
+		   
+		   
+		   }
+		 
+		   }
+    
    }
 		
 	
