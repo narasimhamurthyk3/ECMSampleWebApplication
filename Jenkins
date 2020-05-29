@@ -1,0 +1,62 @@
+java -version
+java -jar D:\MURTHY\ECMSmartServices\Jenkins\ECMSampleApplication.jar
+http://localhost:8084
+
+
+java -jar D:\MURTHY\ECMSmartServices\Jenkins\ECMSampleApplication.war
+jar -xvf MyWar.war
+
+
+
+jar -xf D:\MURTHY\ECMSmartServices\Jenkins\ECMSampleApplication.war
+copy c:\path\to\key.txt WEB-INF\
+jar -cf c:\path\to\mynewwar.war .
+
+D:\MURTHY\ECMSmartServices\Jenkins\files\application.properties
+
+
+copy /Y D:\MURTHY\ECMSmartServices\Jenkins\files\application.properties WEB-INF\classes
+
+jar -cf c:\path\to\mynewwar.war .
+
+updatedwar
+
+jar -cf D:\MURTHY\ECMSmartServices\Jenkins\updatedwar\ECMSampleApplication.war .
+
+jar tvf ECMSampleApplication.jar
+
+jar tvf ECMSampleApplication.jar
+
+mkdir c:/WEB-INF
+cd WEB-INF
+xcopy D:/key.txt C:/WEB-INF
+jar uvf app.war /WEB-INF/classes/application.properties
+
+jar uvf ECMSampleApplication.war application.properties
+
+jar uvf ECMSampleApplication.war\WEB-INF\classes application.properties
+
+jar -cvfM  myapp.war MANIFEST.MF * ",s,new File("/mydir"));
+
+jar -cvfM  ECMSampleApplication.war application.properties *",s,\test\*;
+
+
+jar -cvf ECMSampleApplication.war *
+
+jar -cvf xyz.war *
+
+
+jar -uvf ECMSampleApplication.war WEB-INF/classes/application.properties
+
+jar -uvf ECMSampleApplication.war MANIFEST.MF *,s,new File("/WEB-INF/"));
+new File("/WEB-INF/classes")
+
+
+jar -cvfM  ECMSampleApplication.war * ",s,new File("/mydir"));
+
+
+jar -uvf  ECMSampleApplication.war * ",s,new File("/WEB-INF"));
+
+jar -uvf  ECMSampleApplication.war * ",new File("/WEB-INF"));
+
+jar -uvf  ECMSampleApplication.war *
