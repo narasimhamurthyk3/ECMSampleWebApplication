@@ -54,7 +54,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>ECMSampleApplication</finalName>
+		<finalName>ecm-sample-web-application</finalName>
 	</build>
 
 </project>
