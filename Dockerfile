@@ -1,4 +1,4 @@
 FROM openjdk:8
 EXPOSE 8084
-ADD /target/ECMSampleApplication.jar ECMSampleApplication.jar
-ENTRYPOINT ["java", "-jar", "ECMSampleApplication.jar"]
+ADD /target/ecm-sample-web-application.jar ecm-sample-web-application.jar
+ENTRYPOINT ["java", "-jar", "ecm-sample-web-application.jar"]
